@@ -1,0 +1,5 @@
+.pokemon-font {
+    font-family: 'Pokemon Solid', sans-serif;
+    color: #FFCB05; /* Giallo Pokémon */
+    text-shadow: 2px 2px 0 #3B4CCA; /* Ombra blu scuro */
+}

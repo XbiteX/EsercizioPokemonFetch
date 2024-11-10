@@ -2,23 +2,47 @@ let allPokeContainer = document.getElementById('pokemon-container');
 let modal = document.getElementById('modal');
 let closeModal = document.getElementById('close-modal');
 
+let lista = localStorage.getItem("MyPokemon") // prende la lista di pokemon da localstorage
+let listMyPokemon = lista ? JSON.parse(lista) : [] // se sono presenti dati in localstorage li passa a listMyPokemon, se no ritorna una stringa vuota
+
+
 const fetchPokemonData = async (pokemon) => {
     try {
         const response = await fetch(pokemon.url);
         const pokeData = await response.json();
 
         // Crea un elemento HTML per il Pokémon con immagine più grande
-        const pokeElement = document.createElement('div');
+        const pokeElement = document.createElement('div'); 
         pokeElement.className = 'p-4 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-200 cursor-pointer flex flex-col items-center';
-        pokeElement.innerHTML = `
-            <img src="${pokeData.sprites.other['official-artwork'].front_default || pokeData.sprites.front_default}" 
-                alt="${pokeData.name}" 
-                class="w-full h-48 object-contain mb-2 rounded-lg"> <!-- Dimensione immagine aumentata -->
-            <h3 class="text-xl font-semibold text-center capitalize mt-2">${pokeData.name}</h3> <!-- Testo un po' più grande -->
-        `;
 
-        // Aggiunge l'evento click per mostrare la finestra modale
-        pokeElement.addEventListener('click', () => showModal(pokeData));
+        // creazione dell'element per l'immagine
+        const SpritePokemon = document.createElement('img')
+        SpritePokemon.src = pokeData.sprites.other['official-artwork'].front_default || pokeData.sprites.front_default
+        SpritePokemon.className = "w-full h-48 object-contain mb-2 rounded-lg"
+        SpritePokemon.id = "spritePokemon"
+
+        // creazione del pulsante catch
+        const pulsanteCatch = document.createElement('button')
+        pulsanteCatch.id = "catch"
+        pulsanteCatch.className = "bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+        pulsanteCatch.innerText = "Catch"
+
+        // creazione del testo contenente il nome del pokemon
+        const testo = document.createElement('h3')
+        testo.innerText = pokeData.name
+        testo.className= "text-xl font-semibold text-center capitalize mt-2"
+
+        pokeElement.appendChild(SpritePokemon)
+        pokeElement.appendChild(testo)
+        pokeElement.appendChild(pulsanteCatch)
+
+
+        // Aggiunge l'evento click all'immagine del pokemon per mostrare la finestra modale
+        SpritePokemon.addEventListener('click', () => showModal(pokeData));
+
+        // Aggiunge l'evento click per catttura eun pokemon ed aggiungerlo alla collezione
+        pulsanteCatch.addEventListener('click', () => aggiornaMyPokemon(pokeData))
+
 
         // Aggiunge l'elemento alla griglia
         allPokeContainer.appendChild(pokeElement);
@@ -51,15 +75,23 @@ const showModal = (pokeData) => {
 };
 
 // Chiude la finestra modale
-closeModal.addEventListener('click', () => {
-    modal.classList.add('hidden');
-});
+closeModal.addEventListener('click', () => {modal.classList.add('hidden');});
 
 // Chiude la finestra modale cliccando fuori dalla finestra
 modal.addEventListener('click', (e) => {
-    if (e.target === modal) {
+if (e.target === modal) {
         modal.classList.add('hidden');
     }
 });
+
+//funzione per aggingere i pokemon alla lista persistente MyPokemon
+function aggiornaMyPokemon(Pokemon){
+    //controllo per verificare se Pokemon è già nella lista
+    if(!listMyPokemon.includes(Pokemon)){
+        listMyPokemon.push(Pokemon)
+        localStorage.setItem("MyPokemon", JSON.stringify(listMyPokemon))
+        console.log(listMyPokemon)
+    }
+}
 
 fetchPokemons();
