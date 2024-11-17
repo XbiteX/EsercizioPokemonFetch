@@ -90,7 +90,6 @@ function aggiornaMyPokemon(Pokemon){
     if(!listMyPokemon.includes(Pokemon)){
         listMyPokemon.push(Pokemon)
         localStorage.setItem("MyPokemon", JSON.stringify(listMyPokemon))
-        console.log(listMyPokemon)
     }
 }
 

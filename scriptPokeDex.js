@@ -5,10 +5,7 @@ let closeModal = document.getElementById('close-modal');
 let lista = localStorage.getItem("MyPokemon") // prende la lista di pokemon da localstorage
 let listMyPokemon = lista ? JSON.parse(lista) : [] // se sono presenti dati in localstorage li passa a listMyPokemon, se no ritorna una stringa vuota
 
-
-const fetchPokemonData = async (pokemon) => {
-    try {
-        // Crea un elemento HTML per il Pokémon con immagine più grande
+function creazioneSprite(pokemon){
         const pokeElement = document.createElement('div'); 
         pokeElement.className = 'p-4 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-200 cursor-pointer flex flex-col items-center';
 
@@ -19,10 +16,10 @@ const fetchPokemonData = async (pokemon) => {
         SpritePokemon.id = "spritePokemon"
 
         // creazione del pulsante catch
-        const pulsanteCatch = document.createElement('button')
-        pulsanteCatch.id = "catch"
-        pulsanteCatch.className = "bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
-        pulsanteCatch.innerText = "Catch"
+        const pulsanteRemove = document.createElement('button')
+        pulsanteRemove.id = "remove"
+        pulsanteRemove.className = "bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded"
+        pulsanteRemove.innerText = "Remove"
 
         // creazione del testo contenente il nome del pokemon
         const testo = document.createElement('h3')
@@ -31,18 +28,27 @@ const fetchPokemonData = async (pokemon) => {
 
         pokeElement.appendChild(SpritePokemon)
         pokeElement.appendChild(testo)
-        pokeElement.appendChild(pulsanteCatch)
+        pokeElement.appendChild(pulsanteRemove)
 
-
+        
         // Aggiunge l'evento click all'immagine del pokemon per mostrare la finestra modale
         SpritePokemon.addEventListener('click', () => showModal(pokemon));
 
         // Aggiunge l'evento click per catttura eun pokemon ed aggiungerlo alla collezione
-        pulsanteCatch.addEventListener('click', () => aggiornaMyPokemon(pokemon))
+        pulsanteRemove.addEventListener('click', () => rimuoviMyPokemon(pokemon))
 
+        return pokeElement
+}
+
+async function fetchPokemonData(pokemon){
+    try {
+        // Crea un elemento HTML per il Pokémon con immagine più grande
+        const pokeElement = creazioneSprite(pokemon)
 
         // Aggiunge l'elemento alla griglia
         allPokeContainer.appendChild(pokeElement);
+
+        console.log(allPokeContainer)
 
     } catch (error) {
         console.error('Errore nel fetch dei dati del Pokémon:', error);
@@ -73,15 +79,22 @@ if (e.target === modal) {
 });
 
 //funzione per aggingere i pokemon alla lista persistente MyPokemon
-function aggiornaMyPokemon(Pokemon){
-    //controllo per verificare se Pokemon è già nella lista
-    if(!listMyPokemon.includes(Pokemon)){
-        listMyPokemon.push(Pokemon)
-        localStorage.setItem("MyPokemon", JSON.stringify(listMyPokemon))
-        console.log(listMyPokemon)
+function rimuoviMyPokemon(Pokemon){
+    //controllo per verificare se Pokemon è nella lista
+    if(listMyPokemon.includes(Pokemon)){
+        let index = listMyPokemon.indexOf(Pokemon) //ritorna l'index dell'elemento "Pokemon" è in lista
+        listMyPokemon.splice(index,1) //rimuovi l'elemento dalla lista
+        localStorage.setItem("MyPokemon", JSON.stringify(listMyPokemon)) //aggiorna local storage
+        settlement() //ricarica i pokemon in modo tale da aggiornare la lista dei pokemon catturati
     }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    listMyPokemon.forEach(pokemon => fetchPokemonData(pokemon));
+    settlement()
   });
+
+//funzione per impostare i pokemon catturati
+function settlement(){
+    allPokeContainer.innerHTML = ""; //imposta il tag div vuoto
+    listMyPokemon.forEach(pokemon => fetchPokemonData(pokemon)); //caricamento dei pokemon nel div
+}
