@@ -12,7 +12,7 @@ const fetchPokemonData = async (pokemon) => {
         const pokeData = await response.json();
 
         // Crea un elemento HTML per il Pokémon con immagine più grande
-        const pokeElement = document.createElement('div'); 
+        const pokeElement = document.createElement('div');
         pokeElement.className = 'p-4 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-200 cursor-pointer flex flex-col items-center';
 
         // creazione dell'element per l'immagine
@@ -30,7 +30,7 @@ const fetchPokemonData = async (pokemon) => {
         // creazione del testo contenente il nome del pokemon
         const testo = document.createElement('h3')
         testo.innerText = pokeData.name
-        testo.className= "text-xl font-semibold text-center capitalize mt-2"
+        testo.className = "text-xl font-semibold text-center capitalize mt-2"
 
         pokeElement.appendChild(SpritePokemon)
         pokeElement.appendChild(testo)
@@ -75,36 +75,72 @@ const showModal = (pokeData) => {
 };
 
 // Chiude la finestra modale
-closeModal.addEventListener('click', () => {modal.classList.add('hidden');});
+closeModal.addEventListener('click', () => { modal.classList.add('hidden'); });
 
 // Chiude la finestra modale cliccando fuori dalla finestra
 modal.addEventListener('click', (e) => {
-if (e.target === modal) {
+    if (e.target === modal) {
         modal.classList.add('hidden');
     }
 });
 
 //funzione per aggingere i pokemon alla lista persistente MyPokemon
-function aggiornaMyPokemon(Pokemon){
+function aggiornaMyPokemon(Pokemon) {
     //controllo per verificare se Pokemon è già nella lista
-    if(!listMyPokemon.includes(Pokemon)){
+    if (!listMyPokemon.includes(Pokemon)) {
         listMyPokemon.push(Pokemon)
         localStorage.setItem("MyPokemon", JSON.stringify(listMyPokemon))
     }
 }
 
-function cambiaPagina(){
+function cambiaPagina() {
     window.location.href = "pokeDex.html"
 }
 
 fetchPokemons();
 
+// Sidebar utilities
 document.addEventListener("DOMContentLoaded", function () {
+    // toggle Sidebar variables
     const sidebarToggle = document.getElementById("sidebar-toggle");
     const sidebar = document.getElementById("sidebar");
- 
+    const closeSidebar = document.getElementById("close-sidebar");
+
+    // Switch Theme (light/dark) variables
+    const themeSwitch = document.getElementById("theme-switch");
+    const lightIcon = document.getElementById("light-icon");
+    const darkIcon = document.getElementById("dark-icon");
+
+    let currentTheme = localStorage.getItem("theme") || "light";
+
+    // toggle functions
     sidebarToggle.addEventListener("click", function () {
         sidebar.classList.toggle("-translate-x-full");
         sidebar.classList.toggle("hidden");
+    });
+
+    closeSidebar.addEventListener("click", () => {
+        sidebar.classList.add("hidden");
+    });
+
+    // theme switch function --> (da rivedere)
+    const applyTheme = (theme) => {
+        document.documentElement.setAttribute("data-theme", theme);
+        localStorage.setItem("theme", theme);
+
+        if (theme === "dark") {
+            darkIcon.classList.remove("hidden");
+            lightIcon.classList.add("hidden");
+        } else {
+            lightIcon.classList.remove("hidden");
+            darkIcon.classList.add("hidden");
+        }
+    };
+
+    applyTheme(currentTheme);
+
+    themeSwitch.addEventListener("click", () => {
+        currentTheme = currentTheme === "dark" ? "light" : "dark";
+        applyTheme(currentTheme);
     });
 });
