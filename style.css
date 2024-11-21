@@ -1,5 +1,73 @@
+:root{
+    /*colori per lightmode*/
+    --colore-base: white;
+    --colore-card: #F2F2F2;
+    --colore-sidebar: rgb(219, 219, 219);
+    --testo:black;
+    --colore-icona:rgb(70, 70, 69);
+}
+.dark-mode{
+    /*colori per darkmode*/
+    --colore-base: #262626;
+    --colore-card: #595959;
+    --colore-sidebar: rgb(124, 124, 124);
+    --testo: white;
+    --colore-icona:rgb(253, 253, 253);
+}
+
 .pokemon-font {
     font-family: 'Pokemon Solid', sans-serif;
     color: #FFCB05; /* Giallo Pokémon */
     text-shadow: 2px 2px 0 #3B4CCA; /* Ombra blu scuro */
+}
+
+body{
+    background-color:var(--colore-base);
+    color:var(--testo);
+}
+
+.pokemon-container{
+    background-color: var(--colore-base);
+}
+.modale{
+    background-color: var(--colore-card);
+}
+.carta{
+    background-color: var(--colore-card)
+}
+
+p, h3{
+    color:var(--testo);
+}
+
+#theme-switch{
+    background-color: var(--colore-base);
+}
+
+#theme-switch svg{
+    fill: var(--colore-icona);
+}
+
+#theme-switch svg:last-child{
+    display:none;
+}
+
+.dark-mode #theme-switch svg:first-child{
+    display:none;
+}
+
+.dark-mode #theme-switch svg:last-child{
+    display:block;
+}
+
+.sidebar{
+    background-color: var(--colore-sidebar);
+}
+
+.sidebar a{
+    color: var(--testo);
+}
+
+.sidebar #close-sidebar{
+    color: var(--testo);
 }
