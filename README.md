@@ -12,9 +12,9 @@ Un'applicazione web che permette agli utenti di:
 - [x] **Visualizzazione Pokémon**
   - [x] Recupero dei dati dalla Pokémon API.
   - [x] Mostrare le card con nome, sprite (immagine) e bottone "Catch".
-- [ ] **Cattura Pokémon**
-  - [ ] Implementare l'aggiunta alla lista personale (MyPokemon).
-  - [ ] Salvare la lista in **localStorage** per la persistenza.
+- [x] **Cattura Pokémon**
+  - [x] Implementare l'aggiunta alla lista personale (MyPokemon).
+  - [x] Salvare la lista in **localStorage** per la persistenza.
 - [x] **Visualizzazione dettagliata**
   - [x] Mostrare dettagli (tipo, abilità, statistiche) al click sull'immagine.
 - [x] **Gestione MyPokemon**
