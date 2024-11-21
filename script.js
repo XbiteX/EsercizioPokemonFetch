@@ -70,6 +70,14 @@ const showModal = (pokeData) => {
     document.getElementById('modal-type').innerHTML = `Tipo: <span class="font-semibold">${pokeData.types.map(type => type.type.name).join(', ')}</span>`;
     document.getElementById('modal-abilities').innerHTML = `Abilità: <span class="font-semibold">${pokeData.abilities.map(ability => ability.ability.name).join(', ')}</span>`;
 
+    // Estrai l'attacco e la difesa
+    const attack = pokeData.stats.find(stat => stat.stat.name === 'attack').base_stat;
+    const defense = pokeData.stats.find(stat => stat.stat.name === 'defense').base_stat;
+
+    // Aggiungi attacco e difesa al modale
+    document.getElementById('modal-attack').innerHTML = `Attacco: <span class="font-semibold">${attack}</span>`;
+    document.getElementById('modal-defense').innerHTML = `Difesa: <span class="font-semibold">${defense}</span>`;
+
     modal.classList.remove('hidden');
 };
 
