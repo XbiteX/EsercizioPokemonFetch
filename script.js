@@ -45,7 +45,7 @@ async function fetchPokemonData(pokemon) {
 
 const fetchPokemons = async () => {
     try {
-        const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151');
+        const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=500');
         const tuttiPokemon = await response.json();
         tuttiPokemon.results.forEach(pokemon => fetchPokemonData(pokemon));
     } catch (error) {

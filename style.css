@@ -1,3 +1,5 @@
+
+
 :root{
     /*colori per lightmode*/
     --colore-base: white;
@@ -72,17 +74,3 @@ p, h3{
     color: var(--testo);
 }
 
-#search-input{
-    background-color: var(--colore-sidebar);
-    width: 50%;
-    color:var(--testo)
-}
-
-#sort option, #sort{
-    background-color: var(--colore-sidebar);
-    color: var(--testo)
-}
-
-div #filter{
-    color: var(--testo);
-}

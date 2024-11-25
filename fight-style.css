@@ -1,0 +1,139 @@
+/* Stile per il campo di battaglia */
+html, body {
+    height: 100%; /* L'html e il body copriranno l'intera altezza della finestra */
+    margin: 0;    /* Rimuove eventuali margini predefiniti */
+    padding: 0;   /* Rimuove eventuali padding predefiniti */
+    box-sizing: border-box; /* Garantisce un calcolo corretto degli spazi */
+}
+
+body {
+    background-image: url('https://outsidergaming.com/wp-content/uploads/2023/02/Pokemon-Scarlet-Violet-Medali-Gym-Featured.jpg');
+    background-size: cover; /* Assicura che l'immagine copra l'intera area */
+    background-position: center; /* Centra l'immagine nello sfondo */
+    background-repeat: no-repeat; /* Evita la ripetizione dell'immagine */
+}
+
+.container {
+    min-height: calc(100vh - 1rem); /* Assicura che la pagina occupi almeno l'intera altezza */
+}
+
+.battle-field {
+    position: relative;
+    background: linear-gradient(145deg, #3b82f6, #ef4444);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    0% {
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+    }
+    100% {
+        box-shadow: 0 0 30px rgba(255, 255, 255, 1);
+    }
+}
+
+/* Stile per i Pokémon */
+.card {
+    width: 200px;
+    background: #f8fafc;
+    transition: transform 0.3s ease;
+}
+.card:hover {
+    transform: translateY(-10px);
+}
+
+/* Bottone */
+/*#battleBtn {*/
+/*    background: linear-gradient(90deg, #ff7c7c, #ffcc7c);*/
+/*    color: white;*/
+/*    font-weight: bold;*/
+/*    border: none;*/
+/*}*/
+
+/* Avatar Pokémon */
+.avatar img {
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.confetti-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: hsl(var(--b1));
+    animation: confetti-fall 3s linear infinite, confetti-drift 2s ease-in-out infinite;
+    opacity: 0.7;
+}
+
+@keyframes confetti-fall {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(100vh);
+    }
+}
+
+@keyframes confetti-drift {
+    0%, 100% {
+        transform: rotate(0deg) translateX(0);
+    }
+    50% {
+        transform: rotate(45deg) translateX(20px);
+    }
+}
+
+/* Stile per bottone di battaglia */
+/*#battleBtn {*/
+/*    background-image: linear-gradient(to right, #6b73ff, #000dff);*/
+/*    color: white;*/
+/*    font-family: 'Poppins', sans-serif;*/
+/*    text-transform: uppercase;*/
+/*}*/
+
+/* Hover Animations */
+.card:hover {
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+}
+
+.battle-field:hover {
+    transform: scale(1.02);
+}
+
+/* Stile del Log */
+#battleLog {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.25rem;
+    color: #2c3e50;
+}
+
+/* Opzionale: Per rendere le immagini responsive */
+img {
+    object-fit: contain;
+}

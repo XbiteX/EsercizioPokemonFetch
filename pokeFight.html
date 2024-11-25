@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" class="light-mode">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokémon Battle Arena</title>
+
+    <!-- DaisyUI e TailwindCSS -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Pokemon Solid -->
+    <link href="https://fonts.cdnfonts.com/css/pokemon-solid" rel="stylesheet">
+
+    <!-- Stile CSS -->
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="fight-style.css">
+
+    <!-- Script Dark Mode -->
+    <script type="text/javascript" src="darkMode.js" defer></script>
+
+    <!-- Script SideBar -->
+    <script type="text/javascript" src="scriptSidebar.js" defer></script>
+
+    <!-- Script Battle -->
+    <script type="text/javascript" src="battle.js" defer></script>
+
+    <!--Prova confetti-->
+    <script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js"></script>
+</head>
+
+<body class="bg-cover bg-center" style="background-image: url('https://outsidergaming.com/wp-content/uploads/2023/02/Pokemon-Scarlet-Violet-Medali-Gym-Featured.jpg');">
+<!-- Bottone per il toggle della sidebar -->
+<button id="sidebar-toggle" aria-controls="sidebar" class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+    <span class="sr-only">Open sidebar</span>
+    <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+         xmlns="http://www.w3.org/2000/svg">
+        <path clip-rule="evenodd" fill-rule="evenodd"
+              d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z">
+        </path>
+    </svg>
+</button>
+
+<aside id="sidebar"
+       class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 hidden"
+       aria-label="Sidebar">
+    <div class="h-full px-3 py-4 overflow-y-auto text-gray-800 relative sidebar">
+        <!-- Pulsante per chiudere la sidebar -->
+        <button id="close-sidebar" aria-controls="sidebar"
+                class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-2xl font-bold">
+            &times;
+        </button>
+        <!-- Tema Toggle -->
+        <div class="flex justify-end mb-4">
+            <!-- Bottone per il toggle del tema -->
+            <button id="theme-switch"
+                    class="h-[50px] w-[50px] p-0 rounded-full flex justify-center items-center bottom-[20px] left-[20px] fixed">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+                    <path
+                            d="M479.96-116.41q-151.48 0-257.51-106.04-106.04-106.03-106.04-257.51 0-151.47 106.05-257.67Q328.51-843.83 480-843.83q13.28 0 26.3.88 13.03.88 25.55 2.88-38.13 29.96-61.08 75.15-22.94 45.18-22.94 97.27 0 91.69 64.32 155.88 64.33 64.18 156.22 64.18 52.61 0 97.41-22.82 44.81-22.83 74.52-60.96 1.77 12.52 2.65 25.23.88 12.72.88 25.9 0 151.44-106.2 257.63-106.2 106.2-257.67 106.2Z"/>
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+                    <path
+                            d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z"/>
+                </svg>
+            </button>
+        </div>
+        <ul class="space-y-2 font-medium mt-10">
+            <li>
+                <a href="index.html" class="flex items-center p-2 rounded-lg group hover:bg-gray-300">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 3L2 12h3v7h6V13h2v6h6v-7h3L12 3z" />
+                    </svg>
+                    <span class="ms-3">Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="pokeDex.html" class="flex items-center p-2 rounded-lg group hover:bg-gray-300">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                    </svg>
+                    <span class="ms-3">PokeDex</span>
+                </a>
+            </li>
+            <li>
+                <a href="pokeFight.html" class="flex items-center p-2 rounded-lg group hover:bg-gray-300">
+
+                    <span class="ms-3">Battle Arena</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</aside>
+
+<div class="container mx-auto py-10 flex flex-col items-center">
+    <div class="relative flex items-center justify-center mb-12">
+        <!-- Immagine a sinistra -->
+        <img src="https://imgs.search.brave.com/G83jXy7I9qUzW_4VkKHyKB83w72gd6vmqC4GqfjWsLE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9wbmdm/cmUuY29tL3dwLWNv/bnRlbnQvdXBsb2Fk/cy9Qb2tlYmFsbC0x/LnBuZw" alt="Pokeball Left" class="w-16 h-16 md:w-24 md:h-24 lg:w-32 lg:h-32 absolute left-[-6rem]">
+
+        <!-- Titolo con effetto blur -->
+        <h1 class="pokemon-font text-5xl font-extrabold text-center relative drop-shadow-lg tracking-wider z-10">
+            <span class="relative z-10 ">Pokémon Battle Arena</span>
+            <span class="absolute top-0 left-0 text-transparent blur-lg text-white">
+            Pokémon Battle Arena
+        </span>
+        </h1>
+
+        <!-- Immagine a destra -->
+        <img src="https://imgs.search.brave.com/G83jXy7I9qUzW_4VkKHyKB83w72gd6vmqC4GqfjWsLE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9wbmdm/cmUuY29tL3dwLWNv/bnRlbnQvdXBsb2Fk/cy9Qb2tlYmFsbC0x/LnBuZw" alt="Pokeball Right" class="w-16 h-16 md:w-24 md:h-24 lg:w-32 lg:h-32 absolute right-[-6rem]">
+    </div>
+
+    <!-- Campo di Battaglia -->
+    <div class="battle-field relative flex justify-center items-center gap-16 bg-gradient-to-b from-blue-300 via-white to-pink-300 rounded-lg p-8 shadow-2xl transition-all duration-500 ease-in-out hover:shadow-rose-300">
+        <!-- Pokémon 1 -->
+        <div id="pokemon1"
+             class="card bg-white shadow-xl rounded-lg border border-gray-300 transition-transform transform hover:scale-105">
+            <div class="card-body text-center p-6">
+                <div class="avatar">
+                    <div id="sprite1" class="w-40 h-40 rounded-full border-4 border-blue-400 mx-auto"></div>
+                </div>
+                <h2 id="name1" class="card-title mt-4 text-2xl font-bold text-gray-800 uppercase tracking-wide">
+                    ---
+                </h2>
+            </div>
+        </div>
+
+        <!-- Pokémon 2 -->
+        <div id="pokemon2"
+             class="card bg-white shadow-xl rounded-lg border border-gray-300 transition-transform transform hover:scale-105">
+            <div class="card-body text-center p-6">
+                <div class="avatar">
+                    <div id="sprite2" class="w-40 h-40 rounded-full border-4 border-red-400 mx-auto"></div>
+                </div>
+                <h2 id="name2" class="card-title mt-4 text-2xl font-bold text-gray-800 uppercase tracking-wide">
+                    ---
+                </h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pulsante di Battaglia -->
+    <button id="battleBtn"
+            class="btn btn-warning btn-lg text-xl font-bold rounded-full shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl mt-6">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M13 10V3L4 14h7v7l9-11h-7z"/>
+        </svg>
+        Start Battle
+    </button>
+
+    <!-- Log di Battaglia -->
+    <div id="battleLog" class="text-xl font-semibold text-gray-700 mt-8 bg-white p-4 rounded-lg shadow-md w-3/4 text-center">
+        Seleziona Pokémon per iniziare la battaglia!
+    </div>
+
+<!--    <div class="button" onmousedown="party.confetti(this)">Click me!</div>-->
+</div>
+</body>
+
+</html>
