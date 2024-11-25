@@ -2,12 +2,12 @@
 import * as utils from './utils.js';
 
 let allPokeContainer = document.getElementById('pokemon-container');
-
-
+let debounceTimeout;
+const searchInput = document.getElementById("search-input");
 let lista = localStorage.getItem("MyPokemon") // prende la lista di pokemon da localstorage
 let listMyPokemon = lista ? JSON.parse(lista) : [] // se sono presenti dati in localstorage li passa a listMyPokemon, se no ritorna una stringa vuota
 
-const fetchPokemonData = async (pokemon) => {
+async function fetchPokemonData(pokemon) {
     try {
         const response = await fetch(pokemon.url);
         const pokeData = await response.json();
@@ -19,7 +19,7 @@ const fetchPokemonData = async (pokemon) => {
         const SpritePokemon = utils.creazioneSprite(pokeData);
 
         // creazione del pulsante catch
-        const pulsanteCatch = utils.creazionePulsante("blue","catch","Catch")
+        const pulsanteCatch = utils.creazionePulsante("blue", "catch", "Catch")
 
         // creazione del testo contenente il nome del pokemon
         const testo = utils.creazioneTesto(pokemon);
@@ -64,5 +64,59 @@ function aggiornaMyPokemon(Pokemon) {
         localStorage.setItem("MyPokemon", JSON.stringify(listMyPokemon))
     }
 }
+
+// Funzione di debounce per ritardare la chiamata alla ricerca
+const debounce = (func, delay) => {
+    return (...args) => {
+        clearTimeout(debounceTimeout);
+        debounceTimeout = setTimeout(() => func(...args), delay);
+    };
+};
+
+// Funzione per cercare i Pokémon mentre si scrive
+if (searchInput) {
+    searchInput.addEventListener("input", debounce(async () => {
+    const searchTerm = searchInput.value.trim().toLowerCase();
+    if (searchTerm) {
+            // Esegui la ricerca dei Pokémon che iniziano con il nome
+            await searchPokemons(searchTerm);
+        } else {
+            // Se la ricerca è vuota, ricarica tutti i Pokémon
+            allPokeContainer.innerHTML = "";
+            offset = 0; // Reset offset
+            loadPokemons(); // Ricarica tutti i Pokémon
+        }
+    }, 500));  // Ritardo di 500 ms tra i caratteri digitati
+}
+
+// Funzione per cercare i Pokémon tramite nome che inizia con la ricerca
+async function searchPokemons(searchTerm) {
+    try {
+        allPokeContainer.innerHTML = "";    // Pulisce la lista
+
+        // Richiesta di ricerca dei Pokémon (limite 1000 per ottenere una lista di Pokémon)
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=1000`);
+        if (!response.ok) throw new Error("Errore durante il caricamento dei Pokémon.");
+        const data = await response.json();
+
+        const filteredPokemons = data.results.filter(pokemon => pokemon.name.toLowerCase().startsWith(searchTerm));   // Usa startsWith per cercare i nomi che iniziano con il termine
+
+        if (!filteredPokemons.length) {
+            throw new Error("Nessun Pokémon trovato.")  // Se non ci sono Pokémon che corrispondono, ritorna un errore
+        }
+
+        // Per ogni Pokémon filtrato, richiediamo i dettagli
+        filteredPokemons.forEach((pokemonData) => fetchPokemonData(pokemonData));
+
+
+    } catch (error) {
+        console.error("Errore nella ricerca dei Pokémon:", error.message);
+        const errorMessage = document.createElement("div");
+        errorMessage.classList.add("text-red-500", "text-center", "mt-4");
+        errorMessage.innerHTML = `${error.message}`;
+        pokemonList.appendChild(errorMessage);
+    }
+};
+
 
 fetchPokemons();
