@@ -76,15 +76,14 @@ const debounce = (func, delay) => {
 // Funzione per cercare i Pokémon mentre si scrive
 if (searchInput) {
     searchInput.addEventListener("input", debounce(async () => {
-    const searchTerm = searchInput.value.trim().toLowerCase();
-    if (searchTerm) {
+        const searchTerm = searchInput.value.trim().toLowerCase();
+        if (searchTerm) {
             // Esegui la ricerca dei Pokémon che iniziano con il nome
             await searchPokemons(searchTerm);
         } else {
-            // Se la ricerca è vuota, ricarica tutti i Pokémon
-            allPokeContainer.innerHTML = "";
-            offset = 0; // Reset offset
-            loadPokemons(); // Ricarica tutti i Pokémon
+            // Se l'input è vuoto, ricarica tutti i Pokémon
+            allPokeContainer.innerHTML = ""; // Svuota il contenitore
+            fetchPokemons();                 // Ricarica tutti i Pokémon
         }
     }, 500));  // Ritardo di 500 ms tra i caratteri digitati
 }
