@@ -35,7 +35,7 @@ Un'applicazione web che permette agli utenti di:
 - **Fetch API**
 - **Pokémon API**: [pokeapi.co](https://pokeapi.co/)
 - **LocalStorage**: per la persistenza dei dati.
-- **tailwind & daisyUI**: (https://tailwindcss.com/), (https://daisyui.com/)
+- **[tailwind](https://tailwindcss.com/) & [daisyUI](https://daisyui.com/)**
 
 ## Installazione
 1. Clona il repository:
