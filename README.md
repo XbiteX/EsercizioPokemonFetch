@@ -20,6 +20,8 @@ Un'applicazione web che permette agli utenti di:
 - [x] **Gestione MyPokemon**
   - [x] Mostrare tutti i Pokémon catturati in una sezione dedicata.
   - [x] Implementare il pulsante per rimuovere Pokémon dalla collezione.
+- [ ] **sidebar**
+- [ ]  **darkmode**
 
 ## Requisiti tecnici
 - [x] Usare la Fetch API per ottenere i dati dalla Pokémon API.
@@ -33,6 +35,7 @@ Un'applicazione web che permette agli utenti di:
 - **Fetch API**
 - **Pokémon API**: [pokeapi.co](https://pokeapi.co/)
 - **LocalStorage**: per la persistenza dei dati.
+- **tailwind & daisyUI**: (https://tailwindcss.com/), (https://daisyui.com/)
 
 ## Installazione
 1. Clona il repository:
