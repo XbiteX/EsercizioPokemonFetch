@@ -74,3 +74,8 @@ p, h3{
     color: var(--testo);
 }
 
+
+#search-input, #sort {
+    color:var(--testo);
+    background-color: var(--colore-card);
+}

@@ -3,6 +3,9 @@ import * as utils from './utils.js';
 
 let allPokeContainer = document.getElementById('pokemon-container');
 let debounceTimeout;
+const filtro = document.getElementById('sort')
+const pusanteFiltro = document.getElementById('filter')
+
 const searchInput = document.getElementById("search-input");
 let lista = localStorage.getItem("MyPokemon") // prende la lista di pokemon da localstorage
 let listMyPokemon = lista ? JSON.parse(lista) : [] // se sono presenti dati in localstorage li passa a listMyPokemon, se no ritorna una stringa vuota
@@ -42,6 +45,35 @@ async function fetchPokemonData(pokemon) {
         console.error('Errore nel fetch dei dati del Pokémon:', error);
     }
 };
+
+pusanteFiltro.addEventListener("click", ()=>{
+    const opzioneSort = filtro.value;
+    // prendi tutte le carte
+    const cards = Array.from(document.querySelectorAll(".carta"));
+    console.log(opzioneSort)
+    console.log(cards)
+    switch (opzioneSort) {
+        case "a-z":
+            cards.sort((a, b) => a.querySelector("h3").innerText.localeCompare(b.querySelector("h3").innerText));
+          break;
+        case "z-a":
+            cards.sort((a, b) => b.querySelector("h3").innerText.localeCompare(a.querySelector("h3").innerText));
+          break;
+        case "asc":
+            cards.sort((a, b) => b.querySelector("h3").innerText.localeCompare(a.querySelector("h3").innerText));
+          break;
+          case "z-a":
+            cards.sort((a, b) => b.querySelector("h3").innerText.localeCompare(a.querySelector("h3").innerText));
+          break;
+      }
+
+    // ordina le carte
+
+
+    // pulisci il container e riposiziona le carte ordinate
+    allPokeContainer.innerHTML = "";
+    cards.forEach(card => allPokeContainer.appendChild(card));
+});
 
 const fetchPokemons = async () => {
     try {
