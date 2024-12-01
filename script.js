@@ -35,7 +35,10 @@ async function fetchPokemonData(pokemon) {
         SpritePokemon.addEventListener('click', () => utils.showModal(pokeData));
 
         // Aggiunge l'evento click per catttura eun pokemon ed aggiungerlo alla collezione
-        pulsanteCatch.addEventListener('click', () => aggiornaMyPokemon(pokeData))
+        pulsanteCatch.addEventListener('click', () => {
+            alert("Pokemon catturato!");
+            aggiornaMyPokemon(pokeData);
+        })
 
 
         // Aggiunge l'elemento alla griglia
@@ -57,12 +60,6 @@ pusanteFiltro.addEventListener("click", ()=>{
             cards.sort((a, b) => a.querySelector("h3").innerText.localeCompare(b.querySelector("h3").innerText));
           break;
         case "z-a":
-            cards.sort((a, b) => b.querySelector("h3").innerText.localeCompare(a.querySelector("h3").innerText));
-          break;
-        case "asc":
-            cards.sort((a, b) => b.querySelector("h3").innerText.localeCompare(a.querySelector("h3").innerText));
-          break;
-          case "z-a":
             cards.sort((a, b) => b.querySelector("h3").innerText.localeCompare(a.querySelector("h3").innerText));
           break;
       }
