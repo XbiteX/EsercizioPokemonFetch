@@ -23,9 +23,14 @@
     text-shadow: 2px 2px 0 #3B4CCA; /* Ombra blu scuro */
 }
 
-body{
+/* .body{
     background-color:var(--colore-base);
     color:var(--testo);
+} */
+
+body {
+    background-color: var(--colore-base); /* La variabile gestisce lo sfondo */
+    color: var(--testo); /* Colore del testo */
 }
 
 .pokemon-container{
@@ -78,4 +83,38 @@ p, h3{
 #search-input, #sort {
     color:var(--testo);
     background-color: var(--colore-card);
+}
+
+#content {
+    margin-left: 0;
+    transition: margin-left 0.3s ease-in-out;
+}
+
+#content.sidebar-open {
+    margin-left: 16rem; /* Larghezza della sidebar */
+}
+
+@media (max-width: 768px) {
+    #content.sidebar-open {
+        margin-left: 0; /* Sidebar non influisce sui dispositivi piccoli */
+    }
+}
+
+/* Impostazioni di base per body */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Impostazioni per il contenuto principale */
+#content {
+    flex: 1; /* Questo fa sì che il contenuto prenda tutto lo spazio rimanente */
+}
+
+/* Impostazioni per la sidebar */
+#sidebar {
+    height: 100%; /* Sidebar prende tutta l'altezza della finestra */
 }
