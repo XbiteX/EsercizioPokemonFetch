@@ -7,10 +7,6 @@ Un'applicazione web che permette agli utenti di:
 - Ottenere dettagli sui Pokémon tramite la [Pokémon API](https://pokeapi.co/).
 
 
-## Struttura del progetto
-- `src/`: Contiene il codice JavaScript/HTML/CSS principale.
-
-
 ## Funzionalità
 
 ### Checklist Attività
