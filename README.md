@@ -1,5 +1,4 @@
 # Pokémon Web App
-PokeDexxx
 
 
 ## Link per il sito vercel
