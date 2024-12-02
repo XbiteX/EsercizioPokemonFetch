@@ -94,6 +94,7 @@ git commit -m "Initial commit"
 git branch -M main
 git remote add origin https://github.com/tuo-username/my-web-app.git
 git push -u origin main
+```
 
 ### 2. Collega la Repository a Vercel
 
