@@ -81,4 +81,36 @@ fetch('https://pokeapi.co/api/v2/pokemon?limit=20&offset=0')
    git clone https://github.com/username/EsercizioPokemonFetch
    cd EsercizioPokemonFetch
 
-## Deployment su vercel
+## 🛠️ Passaggi per il Deployment
+
+### 1. Configura la Repository
+
+- Carica il tuo progetto su un servizio Git (ad esempio **GitHub**, **GitLab**, o **Bitbucket**). Esegui questi comandi per inizializzare e caricare la tua repository:
+
+```bash
+git init
+git add .
+git commit -m "Initial commit"
+git branch -M main
+git remote add origin https://github.com/tuo-username/my-web-app.git
+git push -u origin main
+
+### 2. Collega la Repository a Vercel
+
+1. Accedi al tuo account su [Vercel](https://vercel.com).
+2. Clicca su **New Project**.
+3. Seleziona il provider Git (es. **GitHub**) e autorizza l'accesso, se richiesto.
+4. Trova e seleziona la repository del tuo progetto.
+
+### 3. Configura le Impostazioni di Build
+
+Durante la configurazione del progetto su Vercel:
+- **Framework Preset**: Seleziona **Static Site** (l'impostazione predefinita per progetti in HTML/CSS/JS).
+- **Root Directory**: Lascia il campo vuoto se i file del progetto si trovano nella root della repository.
+
+### 4. Effettua il Deployment
+
+- Clicca su **Deploy**. Vercel:
+  - Analizzerà i file del tuo progetto.
+  - Eseguirà il deployment automatico.
+  - Genererà un URL univoco (es. `https://my-web-app.vercel.app`) per accedere alla tua applicazione.
